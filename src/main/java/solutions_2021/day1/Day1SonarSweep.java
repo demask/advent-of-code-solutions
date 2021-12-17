@@ -1,4 +1,4 @@
-package day1;
+package solutions_2021.day1;
 
 import util.Util;
 
