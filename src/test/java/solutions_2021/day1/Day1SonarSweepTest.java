@@ -1,7 +1,6 @@
 package solutions_2021.day1;
 
 import org.junit.jupiter.api.Test;
-import solutions_2021.day1.Day1SonarSweep;
 
 import java.util.List;
 
