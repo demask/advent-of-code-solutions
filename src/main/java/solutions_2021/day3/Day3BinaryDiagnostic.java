@@ -25,8 +25,8 @@ public class Day3BinaryDiagnostic {
     }
 
     public static Integer getLifeSupportRating(List<String> diagnosticList) {
-        String oxygenRatingBinary = getDiagnosticByOccurrencesByIndex(diagnosticList, true);
-        String co2RatingBinary = getDiagnosticByOccurrencesByIndex(diagnosticList, false);
+        String oxygenRatingBinary = getDiagnosticByOccurrencesInEachIndex(diagnosticList, true);
+        String co2RatingBinary = getDiagnosticByOccurrencesInEachIndex(diagnosticList, false);
 
         Integer oxygenRatingInt = Integer.parseInt(oxygenRatingBinary, 2);
         Integer co2RatingInt = Integer.parseInt(co2RatingBinary, 2);
@@ -66,18 +66,18 @@ public class Day3BinaryDiagnostic {
         return epsilonRate.toString();
     }
 
-    private static String getDiagnosticByOccurrencesByIndex(List<String> diagnosticList, boolean oxygenGenerator) {
+    private static String getDiagnosticByOccurrencesInEachIndex(List<String> diagnosticList, boolean oxygenGenerator) {
         String occurrenceRate = getBinaryDiagnosticIndexOccurrenceRate(diagnosticList, oxygenGenerator);
-        List<String> diagnosticByOccurrences = new ArrayList<>(diagnosticList);
+        List<String> diagnosticByOccurrencesOfIndex = new ArrayList<>(diagnosticList);
 
         for (int i = 0; i < occurrenceRate.length(); i++) {
-            if (diagnosticByOccurrences.size() > 1) {
-                List<String> diagnosticByMostOccurrencesTemp = new ArrayList<>(diagnosticByOccurrences);
-                occurrenceRate = getBinaryDiagnosticIndexOccurrenceRate(diagnosticByOccurrences, oxygenGenerator);
-                diagnosticByOccurrences.clear();
+            if (diagnosticByOccurrencesOfIndex.size() > 1) {
+                List<String> diagnosticByMostOccurrencesTemp = new ArrayList<>(diagnosticByOccurrencesOfIndex);
+                occurrenceRate = getBinaryDiagnosticIndexOccurrenceRate(diagnosticByOccurrencesOfIndex, oxygenGenerator);
+                diagnosticByOccurrencesOfIndex.clear();
                 for (String diagnostic : diagnosticByMostOccurrencesTemp) {
                     if (diagnostic.charAt(i) == occurrenceRate.charAt(i)) {
-                        diagnosticByOccurrences.add(diagnostic);
+                        diagnosticByOccurrencesOfIndex.add(diagnostic);
                     }
                 }
             } else {
@@ -85,7 +85,7 @@ public class Day3BinaryDiagnostic {
             }
         }
 
-        return diagnosticByOccurrences.get(0);
+        return diagnosticByOccurrencesOfIndex.get(0);
     }
 
     private static String getBinaryByMostOccurrences(int[] zeroOccurrenceInIndexArray, int[] oneOccurrenceInIndexArray) {
