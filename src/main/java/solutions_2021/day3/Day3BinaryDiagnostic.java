@@ -67,16 +67,16 @@ public class Day3BinaryDiagnostic {
     }
 
     private static String getDiagnosticByOccurrencesInEachIndex(List<String> diagnosticList, boolean oxygenGenerator) {
-        String occurrenceRate = getBinaryDiagnosticIndexOccurrenceRate(diagnosticList, oxygenGenerator);
+        String binaryIndexOccurrenceRate = getBinaryDiagnosticIndexOccurrenceRate(diagnosticList, oxygenGenerator);
         List<String> diagnosticByOccurrencesOfIndex = new ArrayList<>(diagnosticList);
 
-        for (int i = 0; i < occurrenceRate.length(); i++) {
+        for (int i = 0; i < binaryIndexOccurrenceRate.length(); i++) {
             if (diagnosticByOccurrencesOfIndex.size() > 1) {
                 List<String> diagnosticByMostOccurrencesTemp = new ArrayList<>(diagnosticByOccurrencesOfIndex);
-                occurrenceRate = getBinaryDiagnosticIndexOccurrenceRate(diagnosticByOccurrencesOfIndex, oxygenGenerator);
+                binaryIndexOccurrenceRate = getBinaryDiagnosticIndexOccurrenceRate(diagnosticByOccurrencesOfIndex, oxygenGenerator);
                 diagnosticByOccurrencesOfIndex.clear();
                 for (String diagnostic : diagnosticByMostOccurrencesTemp) {
-                    if (diagnostic.charAt(i) == occurrenceRate.charAt(i)) {
+                    if (diagnostic.charAt(i) == binaryIndexOccurrenceRate.charAt(i)) {
                         diagnosticByOccurrencesOfIndex.add(diagnostic);
                     }
                 }
