@@ -10,13 +10,14 @@ public class Day3BinaryDiagnostic {
     public static void main(String[] args) {
         List<String> adventInput = Util.adventInput("2021", "3");
 
-        String gamaRateBinary = getGamaOccurrenceRateBinary(adventInput);
-        System.out.println("First part solution: " + getPowerConsumption(gamaRateBinary, getEpsilonOccurrenceRateBinary(gamaRateBinary)));
-        System.out.println("Second part solution: " + getPowerConsumption(getDiagnosticByOccurrencesByIndex(adventInput, true),
-            getDiagnosticByOccurrencesByIndex(adventInput, false)));
+        System.out.println("First part solution: " + getPowerConsumption(adventInput));
+        System.out.println("Second part solution: " + getLifeSupportRating(adventInput));
     }
 
-    public static Integer getPowerConsumption(String gamaRateBinary, String epsilonRateBinary) {
+    public static Integer getPowerConsumption(List<String> diagnosticList) {
+        String gamaRateBinary = getGamaOccurrenceRateBinary(diagnosticList);
+        String epsilonRateBinary = getEpsilonOccurrenceRateBinary(gamaRateBinary);
+
         Integer gamaRateInt = Integer.parseInt(gamaRateBinary, 2);
         Integer epislonRateInt = Integer.parseInt(epsilonRateBinary, 2);
 
@@ -24,10 +25,13 @@ public class Day3BinaryDiagnostic {
     }
 
     public static Integer getLifeSupportRating(List<String> diagnosticList) {
-        String oxygenRating = getDiagnosticByOccurrencesByIndex(diagnosticList, true);
-        String co2Rating = getDiagnosticByOccurrencesByIndex(diagnosticList, false);
+        String oxygenRatingBinary = getDiagnosticByOccurrencesByIndex(diagnosticList, true);
+        String co2RatingBinary = getDiagnosticByOccurrencesByIndex(diagnosticList, false);
 
-        return getPowerConsumption(oxygenRating, co2Rating);
+        Integer oxygenRatingInt = Integer.parseInt(oxygenRatingBinary, 2);
+        Integer co2RatingInt = Integer.parseInt(co2RatingBinary, 2);
+
+        return oxygenRatingInt * co2RatingInt;
     }
 
     public static String getGamaOccurrenceRateBinary(List<String> diagnosticList) {

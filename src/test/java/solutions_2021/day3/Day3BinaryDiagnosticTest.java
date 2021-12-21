@@ -20,7 +20,7 @@ public class Day3BinaryDiagnosticTest {
 
     @Test
     public void getPowerConsumptionTest() {
-        assertEquals(198, Day3BinaryDiagnostic.getPowerConsumption("10110", "01001"));
+        assertEquals(198, Day3BinaryDiagnostic.getPowerConsumption(List.of("00100", "11110", "10110", "10111", "10101", "01111", "00111", "11100", "10000", "11001", "00010", "01010")));
     }
 
     @Test
