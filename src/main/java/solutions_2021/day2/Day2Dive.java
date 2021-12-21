@@ -9,7 +9,7 @@ public class Day2Dive {
     public static void main(String[] args) {
         List<String> adventInput = Util.adventInput("2021", "2");
 
-        System.out.println("First part solution: " + calculatePosition(adventInput));
+        System.out.println("Solution: " + calculatePosition(adventInput));
     }
 
     public static Integer calculatePosition(List<String> commandsList) {
