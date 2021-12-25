@@ -13,17 +13,31 @@ public class Day4GiantSquid {
     public static void main(String[] args) {
         List<String> adventInput = Util.adventInput("2021", "4");
 
-        System.out.println(getFinalScorePartOne(adventInput));
-        System.out.println(getFinalScorePartTwo(adventInput));
+        System.out.println(getFinalScore(adventInput, true));
+        System.out.println(getFinalScore(adventInput, false));
     }
 
-    public static Integer getFinalScorePartOne(List<String> adventInput) {
+    public static Integer getFinalScore(List<String> adventInput, boolean firstPart) {
         List<Integer> drawnNumberList = getDrawnNumberList(adventInput);
         List<Integer[][]> bingoBoardList = getBingoBoardList(adventInput);
         List<Integer[][]> shadowBingoBoardList = createShadowBingoBoard(bingoBoardList);
 
-        int bingoBoardHit = -1;
+        BingoBoardHitAndDraw bingoBoardHitAndDraw;
+        if (firstPart) {
+            bingoBoardHitAndDraw = getFirstPartBingoBoardHitAndDrawn(drawnNumberList, bingoBoardList, shadowBingoBoardList);
+        } else {
+            bingoBoardHitAndDraw = getSecondPartBingoBoardHitAndDrawn(drawnNumberList, bingoBoardList, shadowBingoBoardList);
+        }
+
+        Integer sumOfUnmarkedNumbers = getSumOfUnmarkedNumbers(bingoBoardList.get(bingoBoardHitAndDraw.getNumberLastHit()),
+            shadowBingoBoardList.get(bingoBoardHitAndDraw.getNumberLastHit()));
+
+        return sumOfUnmarkedNumbers * bingoBoardHitAndDraw.getNumberLastDrawn();
+    }
+
+    private static BingoBoardHitAndDraw getFirstPartBingoBoardHitAndDrawn(List<Integer> drawnNumberList, List<Integer[][]> bingoBoardList, List<Integer[][]> shadowBingoBoardList) {
         int drawnNumber = -1;
+        int bingoBoardHit = -1;
 
         for (Integer integer : drawnNumberList) {
             drawnNumber = integer;
@@ -35,18 +49,12 @@ public class Day4GiantSquid {
             }
         }
 
-        Integer sumOfUnmarkedNumbers = getSumOfUnmarkedNumbers(bingoBoardList.get(bingoBoardHit), shadowBingoBoardList.get(bingoBoardHit));
-
-        return sumOfUnmarkedNumbers * drawnNumber;
+        return new BingoBoardHitAndDraw(drawnNumber, bingoBoardHit);
     }
 
-    public static Integer getFinalScorePartTwo(List<String> adventInput) {
-        List<Integer> drawnNumberList = getDrawnNumberList(adventInput);
-        List<Integer[][]> bingoBoardList = getBingoBoardList(adventInput);
-        List<Integer[][]> shadowBingoBoardList = createShadowBingoBoard(bingoBoardList);
-
-        int bingoBoardHit = -1;
+    private static BingoBoardHitAndDraw getSecondPartBingoBoardHitAndDrawn(List<Integer> drawnNumberList, List<Integer[][]> bingoBoardList, List<Integer[][]> shadowBingoBoardList) {
         int drawnNumber = -1;
+        int bingoBoardHit = -1;
 
         outherloop:
         for (Integer integer : drawnNumberList) {
@@ -65,9 +73,7 @@ public class Day4GiantSquid {
             }
         }
 
-        Integer sumOfUnmarkedNumbers = getSumOfUnmarkedNumbers(bingoBoardList.get(bingoBoardHit), shadowBingoBoardList.get(bingoBoardHit));
-
-        return sumOfUnmarkedNumbers * drawnNumber;
+        return new BingoBoardHitAndDraw(drawnNumber, bingoBoardHit);
     }
 
     private static Integer getSumOfUnmarkedNumbers(Integer[][] bingoBoard, Integer[][] shadowBingoBoard) {
@@ -151,7 +157,7 @@ public class Day4GiantSquid {
         return -1;
     }
 
-    public static Integer[] getColumn(Integer[][] array, int index) {
+    private static Integer[] getColumn(Integer[][] array, int index) {
         Integer[] column = new Integer[array[0].length];
         for (int i = 0; i < column.length; i++) {
             column[i] = array[i][index];
@@ -160,7 +166,7 @@ public class Day4GiantSquid {
         return column;
     }
 
-    public static List<Integer[][]> getBingoBoardList(List<String> adventInput) {
+    private static List<Integer[][]> getBingoBoardList(List<String> adventInput) {
         List<Integer[][]> bingoBoardList = new ArrayList<>();
 
         for (int i = 2; i < adventInput.size(); i++) {
@@ -171,7 +177,7 @@ public class Day4GiantSquid {
         return bingoBoardList;
     }
 
-    public static List<Integer> getDrawnNumberList(List<String> adventInput) {
+    private static List<Integer> getDrawnNumberList(List<String> adventInput) {
         return Arrays.stream(adventInput.get(0).split(",")).map(Integer::parseInt).collect(Collectors.toList());
     }
 
@@ -192,6 +198,34 @@ public class Day4GiantSquid {
 
     private static int[] getBingoBoardLineArray(List<String> adventInput, int index) {
         return Arrays.stream(adventInput.get(index).trim().replaceAll("  ", " ").split(" ")).mapToInt(Integer::parseInt).toArray();
+    }
+
+    private static class BingoBoardHitAndDraw {
+
+        private Integer numberLastDrawn;
+        private Integer numberLastHit;
+
+        public BingoBoardHitAndDraw(Integer numberLastDrawn, Integer numberLastHit) {
+            this.numberLastDrawn = numberLastDrawn;
+            this.numberLastHit = numberLastHit;
+        }
+
+        public Integer getNumberLastDrawn() {
+            return numberLastDrawn;
+        }
+
+        public void setNumberLastDrawn(Integer numberLastDrawn) {
+            this.numberLastDrawn = numberLastDrawn;
+        }
+
+        public Integer getNumberLastHit() {
+            return numberLastHit;
+        }
+
+        public void setNumberLastHit(Integer numberLastHit) {
+            this.numberLastHit = numberLastHit;
+        }
+
     }
 
 }

@@ -30,7 +30,7 @@ public class Day4GiantSquidTest {
             "22 11 13  6  5",
             " 2  0 12  3  7");
 
-        assertEquals(4512, Day4GiantSquid.getFinalScorePartOne(adventInput));
+        assertEquals(4512, Day4GiantSquid.getFinalScore(adventInput, true));
     }
 
     @Test
@@ -55,6 +55,7 @@ public class Day4GiantSquidTest {
             "22 11 13  6  5",
             " 2  0 12  3  7");
 
-        assertEquals(1924, Day4GiantSquid.getFinalScorePartTwo(adventInput));
+        assertEquals(1924, Day4GiantSquid.getFinalScore(adventInput, false));
     }
+
 }
