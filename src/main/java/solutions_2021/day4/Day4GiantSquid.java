@@ -25,8 +25,8 @@ public class Day4GiantSquid {
         int bingoBoardHit = -1;
         int drawnNumber = -1;
 
-        for (int i = 0; i < drawnNumberList.size(); i++) {
-            drawnNumber = drawnNumberList.get(i);
+        for (Integer integer : drawnNumberList) {
+            drawnNumber = integer;
             checkBingoBoard(drawnNumber, bingoBoardList, shadowBingoBoardList);
             bingoBoardHit = checkBingoBoardsForHit(shadowBingoBoardList);
 
@@ -49,8 +49,8 @@ public class Day4GiantSquid {
         int drawnNumber = -1;
 
         outherloop:
-        for (int i = 0; i < drawnNumberList.size(); i++) {
-            drawnNumber = drawnNumberList.get(i);
+        for (Integer integer : drawnNumberList) {
+            drawnNumber = integer;
             checkBingoBoard(drawnNumber, bingoBoardList, shadowBingoBoardList);
             bingoBoardHit = checkBingoBoardsForHit(shadowBingoBoardList);
 
@@ -71,7 +71,7 @@ public class Day4GiantSquid {
     }
 
     private static Integer getSumOfUnmarkedNumbers(Integer[][] bingoBoard, Integer[][] shadowBingoBoard) {
-        Integer sumOfUnmarkedNumbers = 0;
+        int sumOfUnmarkedNumbers = 0;
         for (int i = 0; i < bingoBoard.length; i++) {
             Integer[] bingoBoardLine = bingoBoard[i];
             Integer[] shadowBingoBoardLine = shadowBingoBoard[i];
@@ -117,12 +117,10 @@ public class Day4GiantSquid {
         for (int i = 0; i < shadowBingoBoardList.size(); i++) {
             Integer[][] shadowBingoBoard = shadowBingoBoardList.get(i);
 
-            for (int j = 0; j < shadowBingoBoard.length; j++) {
-                Integer[] shadowBingoBoardRow = shadowBingoBoard[j];
-
+            for (Integer[] shadowBingoBoardRow : shadowBingoBoard) {
                 int rowHits = 0;
-                for (int n = 0; n < shadowBingoBoardRow.length; n++) {
-                    if (shadowBingoBoardRow[n] != null) {
+                for (Integer integer : shadowBingoBoardRow) {
+                    if (integer != null) {
                         rowHits++;
                     } else {
                         break;
@@ -137,8 +135,8 @@ public class Day4GiantSquid {
                 Integer[] shadowBingoBoardColumn = getColumn(shadowBingoBoard, j);
 
                 int columnHits = 0;
-                for (int n = 0; n < shadowBingoBoardColumn.length; n++) {
-                    if (shadowBingoBoardColumn[n] != null) {
+                for (Integer integer : shadowBingoBoardColumn) {
+                    if (integer != null) {
                         columnHits++;
                     } else {
                         break;
